@@ -86,3 +86,121 @@ function filterResponse(data, type) {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+========================================== Multiple ADAPTER============================
+To handle and process different JSON responses from two services and produce a common output format, you can implement a modular approach using a combination of the following:
+ 
+1. **Adapters**: Create adapter modules for each service to transform their specific JSON responses into a common intermediate format.
+2. **Common Processor**: Implement a common processor that can take the intermediate format and produce the final fixed output format.
+3. **Main Controller**: Manage the flow by using the adapters and the common processor.
+ 
+Here’s a step-by-step guide to implementing this in Node.js:
+ 
+### Step 1: Define the Common Intermediate Format
+Create a structure that both service responses will be transformed into. This format should contain all the necessary fields you need to produce the final output.
+ 
+```json
+// Example of an intermediate format
+{
+  "id": "",
+  "name": "",
+  "details": {
+    "field1": "",
+    "field2": ""
+  }
+}
+```
+ 
+### Step 2: Create Adapter Modules
+Create a separate adapter for each service. Each adapter will transform the service-specific JSON response into the intermediate format.
+ 
+```javascript
+// adapterService1.js
+module.exports = function transformService1Response(response) {
+  return {
+    id: response.service1Id,
+    name: response.service1Name,
+    details: {
+      field1: response.service1Field1,
+      field2: response.service1Field2
+    }
+  };
+};
+ 
+// adapterService2.js
+module.exports = function transformService2Response(response) {
+  return {
+    id: response.service2Id,
+    name: response.service2Name,
+    details: {
+      field1: response.service2Field1,
+      field2: response.service2Field2
+    }
+  };
+};
+```
+ 
+### Step 3: Create the Common Processor
+This processor takes the intermediate format and produces the final fixed output format.
+ 
+```javascript
+// processor.js
+module.exports = function processIntermediateFormat(data) {
+  return {
+id: data.id,
+fullName: data.name,
+    fields: {
+      firstField: data.details.field1,
+      secondField: data.details.field2
+    }
+  };
+};
+```
+ 
+### Step 4: Implement the Main Controller
+The main controller will use the adapters and the common processor to handle the entire flow.
+ 
+```javascript
+// mainController.js
+const transformService1Response = require('./adapterService1');
+const transformService2Response = require('./adapterService2');
+const processIntermediateFormat = require('./processor');
+ 
+function handleServiceResponse(service, response) {
+  let intermediateFormat;
+  
+  if (service === 'service1') {
+    intermediateFormat = transformService1Response(response);
+  } else if (service === 'service2') {
+    intermediateFormat = transformService2Response(response);
+  } else {
+    throw new Error('Unsupported service');
+  }
+ 
+  return processIntermediateFormat(intermediateFormat);
+}
+ 
+// Example usage
+const service1Response = {
+  service1Id: '123',
+  service1Name: 'Service One',
+  service1Field1: 'Value1',
+  service1Field2: 'Value2'
+};
+ 
+const service2Response = {
+  service2Id: '456',
+  service2Name: 'Service Two',
+  service2Field1: 'ValueA',
+  service2Field2: 'ValueB'
+};
+ 
+console.log(handleServiceResponse('service1', service1Response));
+console.log(handleServiceResponse('service2', service2Response));
+```
+ 
+### Step 5: Extend and Maintain
+- **Extensibility**: To handle more services in the future, simply create new adapter modules and update the `handleServiceResponse` function to include the new service.
+- **Maintenance**: Keep the adapters updated with any changes in the service response formats and update the processor if the output format changes.
+ 
+This modular approach ensures that each component (adapter, processor) is responsible for a single part of the process, making the code easier to maintain and extend.
