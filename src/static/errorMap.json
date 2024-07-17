@@ -1,0 +1,5 @@
+{
+  "errorMsg_001": {"code":1, "msg":"No data available"},
+  "errorMsg_002": {"code":2, "msg":"No compatible account type"},
+  "errorMsg_003": {"code":3, "msg":"Error parsing JSON data"}
+}

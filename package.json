@@ -1,0 +1,44 @@
+{
+  "name": "example-backend",
+  "description": "Code coverage for backend",
+  "private": true,
+  "scripts": {
+    "start": "nyc --silent node app",
+    "lint": "npx eslint . --format=html --output-file=eslint-report.html",
+    "test": "jest",
+    "cypress-report": "cypress run --spec cypress/e2e/deliverypostapi.cy.js --browser electron --headless"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporter",
+        {
+          "pageTitle": "Test Report",
+          "outputPath": "jest-report/index.html",
+          "includeFailureMsg": true
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cypress": "^13.11.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0",
+    "nyc": "^17.0.0",
+    "pino": "^9.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@cypress/code-coverage": "^3.12.39",
+    "@eslint/js": "^9.5.0",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "eslint": "^9.5.0",
+    "globals": "^15.6.0",
+    "jest": "^29.7.0",
+    "jest-html-reporter": "^3.10.2"
+  }
+}

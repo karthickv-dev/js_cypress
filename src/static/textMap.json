@@ -1,0 +1,12 @@
+{
+  "trust": "Trust",
+  "brokerage": "Brokerage",
+  "accountNo": "accountNo",
+  "accountType": "accountType",
+  "gdpEdelivery": "gdpEdelivery",
+  "pershingEdelivery": "pershingEdelivery",
+  "createdAt": "createdAt",
+  "error": "error",
+  "errorCode": "errorCode",
+  "errorMsg": "errorMessage"
+}

@@ -1,0 +1,1052 @@
+{
+  "openapi": "3.0.1",
+  "info": { "title": "eDelivery", "description": "", "version": "1" },
+  "servers": [{ "url": "https://www.netxservice.com/json/eDelivery/1" }],
+  "paths": {
+    "/account-inquiries": {
+      "post": {
+        "summary": "Get account holder preferences and subscriber ID associated with an account",
+        "description": "Gets account holder preferences and subscriber ID details associated with an account.  \nRequired input field:  \n  \n- existingAccountID - Pershing account number",
+        "requestBody": {
+          "description": "eDeliveryAccountInquiry",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/EDeliveryAccountInquiryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliveryAccountInquiryOutput"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliveryAccountInquiryOutput"
+                }
+              }
+            }
+          },
+          "204": { "description": "No Content", "content": {} },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliveryAccountInquiryOutput"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": { "description": "Not Found", "content": {} },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict in Request,check response for details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliveryAccountInquiryOutput"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliveryAccountInquiryOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "eDeliveryAccountInquiryInput"
+      }
+    },
+    "/subscriber-inquiries": {
+      "post": {
+        "summary": "Get all accounts associated with a subscriber ID",
+        "description": "Gets subscriber ID details and a list of accounts associated with a subscriber ID.  \nRequired input field:  \n  \n- existingSubscriberID - Subscriber ID",
+        "requestBody": {
+          "description": "subscriberInquiry",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriberInquiryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriberInquiryOutput"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriberInquiryOutput"
+                }
+              }
+            }
+          },
+          "204": { "description": "No Content", "content": {} },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriberInquiryOutput"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": { "description": "Not Found", "content": {} },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict in Request,check response for details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriberInquiryOutput"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriberInquiryOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "subscriberInquiryInput"
+      }
+    },
+    "/setup-preferences": {
+      "post": {
+        "summary": "Setup or update paperless delivery preferences for upto 10 accounts under same subscriberID",
+        "description": " \nKey input fields: \n \n- accountNumber - Account identifier \n- subscriberId - Unique identifier for an investor \n- mothersMaidenName - Can be the mother's maiden name or any text string up to 15 characters. Text must be UPPER CASE \n- dateOfBirth - Date of birth associated with the subscriber ID, in mm/dd/yyyy format \n- primaryEmailId - Primary email address for the subscriber ID \n- Delivery preference (paper or paperless) for each document type",
+        "requestBody": {
+          "description": "setupPreference",
+          "content": {
+            "*/*": {
+              "schema": { "$ref": "#/components/schemas/SetupPreferencesInput" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupPreferencesOutput"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupPreferencesOutput"
+                }
+              }
+            }
+          },
+          "204": { "description": "No Content", "content": {} },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupPreferencesOutput"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": { "description": "Not Found", "content": {} },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict in Request,check response for details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupPreferencesOutput"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupPreferencesOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "setupPreferencesInput"
+      }
+    },
+    "/e-delivery-setups": {
+      "post": {
+        "summary": "Set up or update paperless delivery preferences for an account",
+        "description": "Sets up or updates paperless delivery preferences for an account. A separate transaction is required for each account for which you are setting up paperless delivery options.  \nRequired input fields:  \n  \n- accountNumber - Pershing account number  \n- subscriberID - Subscriber ID  \n- mothersMaidenName - Mother&#39",
+        "requestBody": {
+          "description": "eDeliverySetup",
+          "content": {
+            "*/*": {
+              "schema": { "$ref": "#/components/schemas/EDeliverySetupInput" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliverySetupOutput"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliverySetupOutput"
+                }
+              }
+            }
+          },
+          "204": { "description": "No Content", "content": {} },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliverySetupOutput"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": { "description": "Not Found", "content": {} },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict in Request,check response for details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliverySetupOutput"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EDeliverySetupOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "eDeliverySetupInput"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "description": "ErrorResponse Message"
+          }
+        }
+      },
+      "SubscriberInquiryInput": {
+        "required": ["existingSubscriberId"],
+        "type": "object",
+        "properties": {
+          "existingSubscriberId": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Investors user ID. For firms that use NetXInvestor, this is the NetXInvestor ID. Cannot contain spaces or special characters. Text must be UPPER CASE."
+          },
+          "firmRefId": {
+            "maxLength": 3,
+            "type": "string",
+            "description": "Three-character code that identifies a firm (formerly known as IBD code). If your PLINK ID is entitled for more than one firm, use this field to specify the firm associated with the subscriber ID. If you do not populate this field, the default firm for the PLINK ID is used."
+          }
+        }
+      },
+      "SubscriberInquiryOutput": {
+        "type": "object",
+        "properties": {
+          "returnCode": {
+            "maxLength": 4,
+            "type": "string",
+            "description": "Outcome of the request.<br />Allowed Values:<br />00 - Success<br />01 - Invalid account or user not entitled for the account<br />02 - No data available<br />04 - Invalid data sent in request<br />09 - System error<br />80 - User ID does not have access for all the clients accounts<br />99 - Request timeout"
+          },
+          "subscriberId": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Investors user ID. For firms that use NetXInvestor, this is the NetXInvestor ID."
+          },
+          "reasonDescription": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Reason description from the previous update of eDelivery settings."
+          },
+          "eDeliverySettings": {
+            "$ref": "#/components/schemas/eDeliverySettingsBlock"
+          },
+          "message": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Message that describes the outcome of the request."
+          }
+        }
+      },
+      "eDeliverySettingsBlock": {
+        "type": "object",
+        "properties": {
+          "emailAddress1": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Primary email address for the user ID."
+          },
+          "emailAddress2": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Secondary email address for the user ID."
+          },
+          "accountNumber": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/acctNumBlock" }
+          }
+        }
+      },
+      "acctNumBlock": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "maxLength": 9,
+            "type": "string",
+            "description": "Account identifier (also known as account number). The first 3 characters identify the office that services the account, and the last 6 numbers identify the account."
+          }
+        }
+      },
+      "SetupPreferencesInput": {
+        "required": ["primaryEmailId", "subscriberId"],
+        "type": "object",
+        "properties": {
+          "subscriberEntitlementProfileIdentifier": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Entitlement profile to be assigned to a subscriber ID. An entitlement profile defines the users functional entitlements.<br />If you do not specify an entitlement profile when creating a subscriber ID, the Default profile is assigned.<br /> Most firms initial setup with Pershing includes the Default profile; however, if it does not exist, the Edelivery profile is assigned. <br />If neither profile exists, the request to create the subscriber ID is not successful"
+          },
+          "subscriberId": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Investors user ID. For firms that use NetXInvestor, this is the NetXInvestor ID. Cannot contain spaces or special characters. Text must be UPPER CASE."
+          },
+          "internationalCallingCode": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Prefix used to dial a phone number outside of a persons calling region.When creating a new user ID (subscriberID), you must include one or both of the following: phone number and/or mothersMaidenName. When specifying a phone number, all 3 of these fields are required: countryCode, telephoneNumber, and internationalCallingCode."
+          },
+          "countryCode": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Two-character ISO country code of the country associated with the phone number.When creating a new user ID (subscriberID), you must include one or both of the following: phone number and/or mothersMaidenName. When specifying a phone number, all 3 of these fields are required: countryCode, telephoneNumber, and internationalCallingCode."
+          },
+          "telephoneNumber": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Phone number.U.S. or Canada - 10 numeric digits with no spaces or special characters.Other countries - Numeric portion of the phone number not included in the internationalCallingCode, up to 13 numeric digits with no spaces or special characters.When creating a new user ID (subscriberID), you must include one or both of the following: phone number and/or mothersMaidenName. When specifying a phone number, all 3 of these fields are required: countryCode, telephoneNumber, and internationalCallingCode."
+          },
+          "mothersMaidenName": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Mother's maiden name associated with the subscriberId or any text string up to 15 characters. Text must be UPPER CASE.When creating a new user ID (subscriberID), you must include one or both of the following: phone number and/or mothersMaidenName."
+          },
+          "dateOfBirth": {
+            "maxLength": 10,
+            "type": "string",
+            "format": "date",
+            "description": "Date of birth associated with the user ID.<br />Format: MM/DD/YYYY"
+          },
+          "primaryEmailId": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Primary email address for the user ID. If an email address was entered during the account opening process, enter it in this field. Text can be upper and lower case."
+          },
+          "secondaryEmailId": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Secondary email address for the user ID."
+          },
+          "accountNumberLst": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AccountNumberBlock" }
+          }
+        }
+      },
+      "AccountNumberBlock": {
+        "required": ["accountNumber"],
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "maxLength": 9,
+            "type": "string",
+            "description": "Account identifier (also known as account number). The first 3 characters identify the office that services the account, and the last 6 numbers identify the account. Required for each account."
+          },
+          "broadridgeEmailIndicator": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Email address that Broadridge should use for eDelivery of proxy and prospectus documents.<br />Conditional: Required when enrolling the account for eDelivery of proxy and prospectus documents.<br />Allowed Values:<br />1 - emailAddress1<br />2 - emailAddress2"
+          },
+          "broadridgePin": {
+            "maxLength": 4,
+            "type": "string",
+            "description": "Four-digit numeric personal identification number (PIN) to be assigned to the account for proxy documents.<br />Conditional: Required when enrolling the account for eDelivery of proxy documents.",
+            "default": "0000"
+          },
+          "preferences": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PreferenceList" }
+          }
+        }
+      },
+      "PreferenceList": {
+        "type": "object",
+        "properties": {
+          "docType": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Document type for which you are setting up or updating the delivery method. For each docType, a corresponding preference is required. At least one docType and preference combination is required for each account.<br />Allowed Values:<br />1 - Statements and reports<br />2 - Trade confirmations<br />3 - Notifications<br />4 - Tax documents<br />5 - Quarterly Performance Reports<br />6 - Prospectuses<br />7 - Proxy/shareholder communications"
+          },
+          "preference": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Delivery method to use for the specified docType. For each docType, a corresponding preference is required. At least one docType and preference combination is required for each account.<br />Allowed Values:<br />1 - Paper delivery<br />2 - eDelivery"
+          }
+        }
+      },
+      "SetupPreferencesOutput": {
+        "required": ["returnCode"],
+        "type": "object",
+        "properties": {
+          "returnCode": {
+            "type": "integer",
+            "description": "Outcome of the request.<br />Allowed Values:<br />00 - Success<br />01 - User ID unavailable<br />03 - Invalid user<br />04 - Invalid data sent in request<br />09 - System error<br />37 - Mainframe update failure"
+          },
+          "returnMessage": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Message that describes the outcome of the request."
+          },
+          "accountNumberLst": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AccountNumberBlock" }
+          }
+        }
+      },
+      "EDeliverySetupInput": {
+        "required": ["accountNumber"],
+        "type": "object",
+        "properties": {
+          "skipAccountMaintenanceApprovalFlag": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Indicates whether account maintenance approval will be skipped for this request, optimizing eDelivery setup time.<br />Allowed Values:<br />Y - Yes, skip account maintenance approval for this request<br />N - No, route the request for account maintenance approval"
+          },
+          "subscriberEntitlementProfileIdentifier": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Entitlement profile to be assigned to a subscriber ID. An entitlement profile defines the users functional entitlements.<br />If you do not specify an entitlement profile when creating a subscriber ID, the Default profile is assigned.<br /> Most firms initial setup with Pershing includes the Default profile; however, if it does not exist, the Edelivery profile is assigned. <br />If neither profile exists, the request to create the subscriber ID is not successful"
+          },
+          "accountNumber": {
+            "maxLength": 9,
+            "type": "string",
+            "description": "Account identifier (also known as account number). The first 3 characters identify the office that services the account, and the last 6 numbers identify the account."
+          },
+          "eDeliveryInfo": { "$ref": "#/components/schemas/eDeliveryInfo" },
+          "enrollBlockSetup": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/enrollBlockSetupIn" }
+          }
+        }
+      },
+      "eDeliveryInfo": {
+        "required": ["emailAddress1", "subscriberId"],
+        "type": "object",
+        "properties": {
+          "subscriberId": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Investors user ID. For firms that use NetXInvestor, this is the NetXInvestor ID. Cannot contain spaces or special characters. Text must be UPPER CASE."
+          },
+          "internationalCallingCode": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Prefix used to dial a phone number outside of a persons calling region. When creating a new user ID (subscriberID), you must include one or both of the following: phone number and/or mothersMaidenName. When specifying a phone number, all 3 of these fields are required: countryCode, telephoneNumber, and internationalCallingCode."
+          },
+          "countryCode": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Two-character ISO country code of the country associated with the phone number.When creating a new user ID (subscriberID), you must include one or both of the following: phone number and/or mothersMaidenName. When specifying a phone number, all 3 of these fields are required: countryCode, telephoneNumber, and internationalCallingCode."
+          },
+          "telephoneNumber": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Phone number.U.S. or Canada - 10 numeric digits with no spaces or special characters.Other countries - Numeric portion of the phone number not included in the internationalCallingCode, up to 13 numeric digits with no spaces or special characters.When creating a new user ID (subscriberID), you must include one or both of the following: phone number and/or mothersMaidenName. When specifying a phone number, all 3 of these fields are required: countryCode, telephoneNumber, and internationalCallingCode."
+          },
+          "mothersMaidenName": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Mother's maiden name associated with the subscriberId or any text string up to 15 characters. Text must be UPPER CASE.When creating a new user ID (subscriberID), you must include one or both of the following: phone number and/or mothersMaidenName."
+          },
+          "dateOfBirth": {
+            "maxLength": 10,
+            "type": "string",
+            "format": "date",
+            "description": "Date of birth associated with the user ID.<br />Conditional: Required when creating a new user ID.<br />Format: MM/DD/YYYY"
+          },
+          "emailAddress1": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Primary email address for the user ID.<br />If an email address was entered during the account opening process, enter it in this field.<br />Text can be upper and lower case."
+          },
+          "emailAddress2": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Secondary email address for the user ID.<br />Text can be upper and lower case."
+          },
+          "broadridgeEmailIndicator": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Email address that Broadridge should use for eDelivery of proxy and prospectus documents.<br />Conditional: Required when enrolling the account for eDelivery of proxy and prospectus documents.<br />Allowed Values:<br />1 - emailAddress1<br />2 - emailAddress2"
+          }
+        }
+      },
+      "enrollBlockSetupIn": {
+        "type": "object",
+        "properties": {
+          "broadridgePin": {
+            "maxLength": 4,
+            "type": "string",
+            "description": "Four-digit numeric personal identification number (PIN) to be assigned to the account for proxy documents.<br />Conditional: Required when enrolling the account for eDelivery of proxy documents.",
+            "default": "0000"
+          },
+          "statementBlock": { "$ref": "#/components/schemas/statementBlockIn" },
+          "confirmBlock": { "$ref": "#/components/schemas/confirmBlockIn" },
+          "qprsBlock": { "$ref": "#/components/schemas/QPRSBlockIn" },
+          "taxBlock": { "$ref": "#/components/schemas/taxBlockIn" },
+          "notificationBlock": {
+            "$ref": "#/components/schemas/notificationBlockIn"
+          },
+          "proxyBlock": { "$ref": "#/components/schemas/proxyBlockIn" },
+          "prospectusBlock": {
+            "$ref": "#/components/schemas/prospectusBlockIn"
+          }
+        }
+      },
+      "statementBlockIn": {
+        "type": "object",
+        "properties": {
+          "deliveryStatement": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for statements.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          }
+        }
+      },
+      "confirmBlockIn": {
+        "type": "object",
+        "properties": {
+          "deliveryConfirm": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for trade confirmations.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          }
+        }
+      },
+      "QPRSBlockIn": {
+        "type": "object",
+        "properties": {
+          "deliveryQprs": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for quarterly performance reports (QPRs).<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          }
+        }
+      },
+      "taxBlockIn": {
+        "type": "object",
+        "properties": {
+          "deliveryTax": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for tax statements.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          }
+        }
+      },
+      "notificationBlockIn": {
+        "type": "object",
+        "properties": {
+          "deliveryNotification": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for notifications.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          }
+        }
+      },
+      "proxyBlockIn": {
+        "type": "object",
+        "properties": {
+          "deliveryProxy": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for proxies.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          }
+        }
+      },
+      "prospectusBlockIn": {
+        "type": "object",
+        "properties": {
+          "deliveryProspectus": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for prospectuses.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          }
+        }
+      },
+      "EDeliverySetupOutput": {
+        "type": "object",
+        "properties": {
+          "subscriberId": {
+            "maxLength": 15,
+            "type": "string",
+            "description": "Investors user ID. For firms that use NetXInvestor, this is the NetXInvestor ID."
+          },
+          "returnCode": {
+            "type": "integer",
+            "description": "Outcome of the request.<br />Allowed Values:<br />00 - Success<br />01 - Invalid account or user not entitled for the account<br />04 - Invalid data sent in request<br />09 - System error<br />99 - Request timeout"
+          },
+          "message": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Message that describes the outcome of the request."
+          }
+        }
+      },
+      "EDeliveryAccountInquiryInput": {
+        "required": ["existingAccountId"],
+        "type": "object",
+        "properties": {
+          "existingAccountId": {
+            "maxLength": 9,
+            "type": "string",
+            "description": "Account identifier (also known as account number). The first 3 characters identify the office that services the account, and the last 6 numbers identify the account."
+          }
+        }
+      },
+      "EDeliveryAccountInquiryOutput": {
+        "type": "object",
+        "properties": {
+          "returnCode": {
+            "maxLength": 4,
+            "type": "string",
+            "description": "Outcome of the request.<br />Allowed Values:<br />00 - Success<br />01 - Invalid account or user not entitled for the account<br />02 - No data available<br />04 - Invalid data sent in request<br />09 - System error<br />80 - User ID does not have access for all the clients accounts<br />99 - Request timeout"
+          },
+          "eDeliverySubscriptions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/eDeliverySubcrInfolst" }
+          },
+          "preferences": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/enrollBlockOut" }
+          },
+          "message": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Message describing the outcome of the request."
+          }
+        }
+      },
+      "eDeliverySubcrInfolst": {
+        "type": "object",
+        "properties": {
+          "subcriberInfo": { "$ref": "#/components/schemas/subcriberInfoBlock" }
+        }
+      },
+      "enrollBlockOut": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "maxLength": 9,
+            "type": "string",
+            "description": "Account identifier (also known as account number). The first 3 characters identify the office that services the account, and the last 6 numbers identify the account."
+          },
+          "accountReturnCode": {
+            "maxLength": 2,
+            "type": "string",
+            "description": "Outcome of the account inquiry.<br />Allowed Values:<br />00 - Normal<br />01 - Ineligible<br />02 - Invalid<br />10 - Email not found<br />23 - Enrollment not found"
+          },
+          "broadridgeEmail": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Email address for proxy and prospectus documents.<br/>Allowed Values:<br/>1 - Use emailAddress1 as Broadridge email<br/>2 - Use emailAddress2 as Broadridge email"
+          },
+          "broadridgePin": {
+            "maxLength": 4,
+            "type": "string",
+            "description": "Four-digit numeric personal identification number (PIN) assigned to the account for proxy documents."
+          },
+          "statementBlock": {
+            "$ref": "#/components/schemas/statementBlockOut"
+          },
+          "confirmBlock": { "$ref": "#/components/schemas/confirmBlockOut" },
+          "qprsBlock": { "$ref": "#/components/schemas/QPRSBlockOut" },
+          "taxBlock": { "$ref": "#/components/schemas/taxBlockOut" },
+          "notificationBlock": {
+            "$ref": "#/components/schemas/notificationBlockOut"
+          },
+          "proxyBlock": { "$ref": "#/components/schemas/proxyBlockOut" },
+          "prospectusBlock": {
+            "$ref": "#/components/schemas/prospectusBlockOut"
+          }
+        }
+      },
+      "subcriberInfoBlock": {
+        "type": "object",
+        "properties": {
+          "subscriberUserId": {
+            "maxLength": 10,
+            "type": "string",
+            "description": "Unique identifier for an investor. For firms using NetXInvestor, this is the NetXInvestor login ID."
+          },
+          "emailAddressList": {
+            "$ref": "#/components/schemas/emailaddressBlock"
+          }
+        }
+      },
+      "statementBlockOut": {
+        "type": "object",
+        "properties": {
+          "deliveryStatement": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for statements.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Effective date for this delivery method.",
+            "format": "date"
+          }
+        }
+      },
+      "confirmBlockOut": {
+        "type": "object",
+        "properties": {
+          "deliveryConfirm": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for trade confirmations.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Effective date for this delivery method.",
+            "format": "date"
+          }
+        }
+      },
+      "QPRSBlockOut": {
+        "type": "object",
+        "properties": {
+          "deliveryQprs": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for quarterly performance reports (QPRs).<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) -No change"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Effective date for this delivery method.",
+            "format": "date"
+          },
+          "pershingIndicator": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "System that provides performance reports for the account.<br />Allowed Values:<br />P - Pershing<br />A - Albridge<br />N - Not eligible for performance reporting"
+          },
+          "pmasIndicator": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Indicates whether the account is eligible for Managed Account reports.<br />Allowed Values:<br />Y - Yes<br />N - No"
+          }
+        }
+      },
+      "taxBlockOut": {
+        "type": "object",
+        "properties": {
+          "deliveryTax": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for tax statements.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Effective date for this delivery method.",
+            "format": "date"
+          }
+        }
+      },
+      "notificationBlockOut": {
+        "type": "object",
+        "properties": {
+          "deliveryNotification": { "maxLength": 1, "type": "string" },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Effective date for this delivery method.",
+            "format": "date"
+          }
+        }
+      },
+      "proxyBlockOut": {
+        "type": "object",
+        "properties": {
+          "deliveryProxy": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for proxies.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Effective date for this delivery method.",
+            "format": "date"
+          }
+        }
+      },
+      "prospectusBlockOut": {
+        "type": "object",
+        "properties": {
+          "deliveryProspectus": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Delivery method to use for prospectuses.<br />Allowed Values:<br />P - Paper delivery<br />E - eDelivery<br />(Space) - No change"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Effective date for this delivery method.",
+            "format": "date"
+          },
+          "prospectusIndicator": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Indicates whether the account is eligible to receive prospectuses.<br />Allowed Values:<br />Y - Yes<br />N - No"
+          },
+          "mutualFund": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Indicates whether mutual fund prospectuses should be sent for the account.<br />Allowed Values:<br />M - Yes, send mutual fund prospectuses<br />(Space) - No change"
+          },
+          "etf": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Indicates whether Exchange Traded Fund (ETF) prospectuses should be sent for the account.<br />Allowed Values:<br />E - Yes, send ETF prospectuses<br />(Space) - No change"
+          },
+          "uit": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Indicates whether Unit Investment Trust (UIT) prospectuses should be sent for the account.<br />Allowed Values:<br />U - Yes, send UIT prospectuses<br />(Space) - No change"
+          },
+          "structuredNotes": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Indicates whether structured note prospectuses should be sent for the account.<br />Allowed      Values:<br />F - Yes, send structured note prospectuses<br />(Space) - No change"
+          }
+        }
+      },
+      "emailaddressBlock": {
+        "type": "object",
+        "properties": {
+          "emailAddress1": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Primary email address for the user ID."
+          },
+          "emailAddress2": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Secondary email address for the user ID."
+          }
+        }
+      }
+    }
+  }
+}

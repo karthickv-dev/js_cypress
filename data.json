@@ -1,0 +1,26 @@
+[
+    {
+        "accountNo" : "11111",
+        "accountType" : "Trust",
+        "gdpEdelivery" : 8888,
+        "pershingEdelivery" : 8765
+    },
+    {
+        "accountNo" : "22222",
+        "accountType" : "Brokerage",
+        "gdpEdelivery" : 0,
+        "pershingEdelivery" : null
+    },
+    {
+        "accountNo" : "33333",
+        "accountType" : "Trust",
+        "gdpEdelivery" : null,
+        "pershingEdelivery" : 0
+    },
+    {
+        "accountNo" : "44444",
+        "accountType" : "Brokerage",
+        "gdpEdelivery" : 1234,
+        "pershingEdelivery" : 22222
+    }
+]
