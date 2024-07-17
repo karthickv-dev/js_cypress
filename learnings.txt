@@ -1,0 +1,88 @@
+//================================callMultipleServiceandFilter===========================
+// app.js
+const express = require('express');
+const axios = require('axios');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+const port = 3000;
+
+// Middleware
+app.use(bodyParser.json());
+
+// Load fields configuration
+const fieldsConfigPath = path.join(__dirname, 'config', 'fieldsConfig.json');
+let fieldsConfig = {};
+try {
+  const configData = fs.readFileSync(fieldsConfigPath, 'utf8');
+  fieldsConfig = JSON.parse(configData);
+} catch (error) {
+  console.error('Failed to load fields configuration:', error.message);
+}
+
+// Endpoint to handle requests
+app.get('/getResponse', async (req, res) => {
+  const type = req.header('type');
+
+  if (!type) {
+    return res.status(400).json({ error: 'Missing type header' });
+  }
+
+  let apiUrl;
+  switch (type) {
+    case 'service1':
+      apiUrl = 'http://api.example.com/service1'; // Replace with actual service 1 API endpoint
+      break;
+    case 'service2':
+      apiUrl = 'http://api.example.com/service2'; // Replace with actual service 2 API endpoint
+      break;
+    default:
+      return res.status(400).json({ error: `Unsupported type: ${type}` });
+  }
+
+  try {
+    const response = await axios.get(apiUrl);
+    const filteredResponse = filterResponse(response.data, type);
+    res.json(filteredResponse);
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'Failed to fetch data from API' });
+  }
+});
+
+// Function to filter response based on fields configuration
+function filterResponse(data, type) {
+  const allowedFields = fieldsConfig[type];
+
+  if (!allowedFields || allowedFields.length === 0) {
+    return data; // Return all data if no specific fields are configured
+  }
+
+  const filteredData = {};
+
+  allowedFields.forEach(field => {
+    if (field.includes('.')) {
+      // Handle nested fields
+      const nestedFields = field.split('.');
+      let nestedValue = data;
+      nestedFields.forEach(nestedField => {
+        nestedValue = nestedValue[nestedField];
+      });
+      filteredData[field] = nestedValue;
+    } else {
+      // Handle top-level fields
+      if (data.hasOwnProperty(field)) {
+        filteredData[field] = data[field];
+      }
+    }
+  });
+
+  return filteredData;
+}
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
